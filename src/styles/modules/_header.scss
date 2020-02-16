@@ -1,0 +1,176 @@
+%humburger {
+	position: absolute;
+	background-color: $bgColor02;
+	height: 3px;
+	width: 30px;
+	transition: transform .3s, background-color .3s;
+}
+
+.header {
+	flex-shrink: 0;
+	position: relative;
+	z-index: 5;
+
+	&.active {
+
+		.header__nav {
+			top: 100%;
+		}
+
+		.header__humburger {
+
+			span {
+				background-color: transparent;
+
+				&:before {
+					transform: translateY(0) rotate(-45deg);
+				}
+
+				&:after {
+					transform: translateY(0) rotate(45deg);
+				}
+			}
+		}
+	}
+
+	&__inner {
+		background-color: $bgMain;
+	}
+
+	&__box {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	&__side {
+		display: flex;
+		align-items: center;
+		flex-grow: 1;
+	}
+
+	&__name {
+		margin-left: 15px;
+		font-weight: 500;
+	}
+
+	&__humburger {
+		display: inline-block;
+		width: 50px;
+		height: 50px;
+		background-color: $bgColor03;
+		position: relative;
+
+		&:hover {
+
+			span {
+
+				&:before,
+				&:after {
+					will-change: transform;
+				}
+			}
+		}
+
+		span {
+			@extend %humburger;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+
+			&:before,
+			&:after {
+				content: "";
+				@extend %humburger;
+				top: 0;
+				left: 0;
+				transform: translateY(-8px);
+			}
+
+			&:after {
+				transform: translateY(8px);
+			}
+		}
+	}
+	
+	&__nav {
+		font-size: 20px;
+		background-color: $bgColor03;
+		padding: .5em;
+		position: absolute;
+		z-index: -1;
+		top: -100%;
+		left: 0;
+		right: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+		transition: top .4s;
+
+		@include xs {
+			font-size: 18px;
+		}
+	}
+
+	&__nav-link {
+		display: inline-block;
+		text-align: center;
+		white-space: nowrap;
+
+		&:nth-child(n+2) {
+			margin-left: 1em;
+		}
+
+		&:hover,
+		&.active {
+
+			.header__nav-text {
+				color: $colorActive;
+			}
+
+			.header__icon {
+				fill: $colorActive;
+			}
+		}
+	}
+
+	&__icon {
+		fill: $colorIcon;
+		transition: fill .3s;
+		width: 1em;
+		height: 1em;
+	}
+
+	&__nav-text {
+		display: block;
+		font-size: .7em;
+		line-height: 1em;
+		color: $colorSubTitle;
+		transition: color .3s;
+	}
+
+	&__line {
+		height: .2em;
+		position: absolute;
+		top: 0;
+		background-color: $bgActive;
+		border-radius: 0 0 .4em .4em;
+		transition: all .3s;
+	}
+
+	&__form {
+		flex-shrink: 0;
+		transition: opacity .3s;
+
+		&--disable,
+		&--not-allowed {
+			cursor: not-allowed;
+			opacity: .3;
+
+			& > * {
+				pointer-events: none;
+			}
+		}
+	}
+}

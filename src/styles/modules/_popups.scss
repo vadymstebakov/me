@@ -1,0 +1,60 @@
+.popup {
+	position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+	right: 0;
+	opacity: 0;
+	z-index: -1;
+	pointer-events: none;
+	visibility: hidden;
+	transition: opacity .7s 0s, visibility 0s .7s, z-index 0s .7s;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	padding: 60px 10px 10px;
+
+	&--update-padding {
+		padding: 120px 10px 10px;
+
+		@include xs {
+			padding: 113px 10px 10px;
+		}
+	}
+
+	&.active {
+		pointer-events: auto;
+		opacity: 1;
+		z-index: 4;
+		visibility: visible;
+		transition: opacity .7s .5s, visibility 0s 0s, z-index 0s 0s, padding .4s;
+	}
+
+	&__wrap {
+		position: relative;
+		height: 100%;
+		width: 100%;
+		max-width: 1250px;
+		margin: 0 auto;
+		background-color: $bgColor01;
+	}
+
+	&__inner {
+		height: 100%;
+		overflow: auto;
+		-webkit-overflow-scrolling: touch;
+
+		&::-webkit-scrollbar {
+			width: 8px;
+			height: 8px;
+		}
+		
+		&::-webkit-scrollbar-track {
+			background-color: $bgColor03;
+		}
+		
+		&::-webkit-scrollbar-thumb {
+			background-color: #0078d4;
+		}
+	}
+}

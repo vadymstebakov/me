@@ -1,0 +1,10 @@
+.container {
+    width: 100%;
+    padding: 0 10px;
+    max-width: 1270px;
+	margin: 0 auto;
+	
+	&--popup {
+		padding: 15px;
+	}
+}

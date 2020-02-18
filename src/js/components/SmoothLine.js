@@ -19,17 +19,16 @@ const activeSmoothLine = el =>
 
 export default class SmoothLine {
 	constructor() {
-		this.clickHandler = this.clickHandler.bind(this);
-		this.bindEvents();
+		this._initSmoothLine();
 	}
 
-	bindEvents() {
-		nav.addEventListener('click', this.clickHandler, false);
+	_initSmoothLine() {
+		nav.addEventListener('click', this._checkSmoothLine.bind(this), false);
 	}
 
-	clickHandler() {
-		event.preventDefault();
-		const link = event.target.closest('.header__nav-link');
+	_checkSmoothLine(e) {
+		e.preventDefault();
+		const link = e.target.closest('.header__nav-link');
 
 		if (!link) return;
 
@@ -42,7 +41,7 @@ export default class SmoothLine {
 		});
 	}
 
-	resizedFn() {
+	checkResize() {
 		oldWidth = nav.clientWidth;
 
 		if (newWidth !== oldWidth) {

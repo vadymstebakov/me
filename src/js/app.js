@@ -24,14 +24,14 @@ SetGradient.inject(document.querySelector('.main'));
 
 // Toggle menu
 let menu = new Menu('.header__humburger');
-menu.bindEvents();
+menu.toggleMenu();
 
 // Resize function
 (function fnResize() {
 	let doit;
 
 	function resized() {
-		smoothLine.resizedFn();
+		smoothLine.checkResize();
 	}
 
 	window.onresize = () => {

@@ -1,22 +1,20 @@
 const popups = document.querySelectorAll('.popup');
 
 export default class Menu {
-	constructor(humburger) {
-		this.humburger = document.querySelector(humburger);
-
-		this.clickHandler = this.clickHandler.bind(this);
+	constructor(menu) {
+		this.menu = document.querySelector(menu);
 	}
 
-	bindEvents() {
-		this.humburger.addEventListener('click', this.clickHandler, false);
-	}
-
-	clickHandler() {
-		event.preventDefault();
-		this.humburger.closest('#header').classList.toggle('active');
+	_toggleHandler(e) {
+		e.preventDefault();
+		this.menu.closest('#header').classList.toggle('active');
 
 		popups.forEach(popup => {
 			popup.classList.toggle('popup--update-padding');
 		});
+	}
+
+	toggleMenu() {
+		this.menu.addEventListener('click', this._toggleHandler.bind(this), false);
 	}
 }

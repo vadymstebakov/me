@@ -51,7 +51,13 @@
 
 	&__name {
 		margin-left: 15px;
-		font-weight: 500;
+		font-family: $caveat;
+		font-weight: 700;
+		font-size: 25px;
+
+		@include xs {
+			font-size: 23px;
+		}
 	}
 
 	&__humburger {

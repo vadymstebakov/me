@@ -11,6 +11,8 @@ const mixColors = arrColors.sort(() => Math.random() - 0.5).join(', ');
 
 export default class SetGradient {
 	static inject(main) {
-		main.style.backgroundImage = `linear-gradient(-45deg, ${mixColors})`;
+		document.querySelector(
+			main
+		).style.backgroundImage = `linear-gradient(-45deg, ${mixColors})`;
 	}
 }

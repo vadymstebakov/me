@@ -1,3 +1,5 @@
+import {asyncForEach} from './customMethods';
+
 const nav = document.querySelector('.header__nav');
 const links = nav.querySelectorAll('.header__nav-link');
 const line = nav.querySelector('.header__line');
@@ -19,11 +21,12 @@ const activeSmoothLine = el =>
 
 export default class SmoothLine {
 	constructor() {
+		this._checkSmoothLine = this._checkSmoothLine.bind(this);
 		this._initSmoothLine();
 	}
 
 	_initSmoothLine() {
-		nav.addEventListener('click', this._checkSmoothLine.bind(this), false);
+		nav.addEventListener('click', this._checkSmoothLine, false);
 	}
 
 	_checkSmoothLine(e) {
@@ -36,7 +39,7 @@ export default class SmoothLine {
 	}
 
 	eachItems() {
-		links.forEach(link => {
+		asyncForEach(links, ([link]) => {
 			activeSmoothLine(link);
 		});
 	}

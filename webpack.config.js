@@ -44,7 +44,7 @@ const multiplesHTMLPages = () => {
 
 	HTMLPages.push(...fileNames);
 
-	//TODO: Pages will display
+	//NOTE: How many pages you will get
 	console.log(`Pages: ${HTMLPages.join(', ')}`);
 
 	return HTMLPages.map(
@@ -114,6 +114,22 @@ const babelOptions = preset => {
 	return opts;
 };
 
+// Js loaders
+const jsLoaders = () => {
+	const loaders = [
+		{
+			loader: 'babel-loader',
+			options: babelOptions(),
+		},
+	];
+
+	if (isDev) {
+		loaders.push('eslint-loader');
+	}
+
+	return loaders;
+};
+
 // Filename
 const filename = ext => (isDev ? `[name].${ext}` : `[name].[hash].min.${ext}`);
 
@@ -177,10 +193,7 @@ module.exports = {
 			{
 				test: /\.js$/,
 				include: /js/,
-				loader: {
-					loader: 'babel-loader',
-					options: babelOptions(),
-				},
+				use: jsLoaders(),
 			},
 			{
 				test: /\.scss$/i,

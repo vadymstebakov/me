@@ -1,7 +1,8 @@
 import SymbolSprite from './components/SymbolSprite';
 import SmoothLine from './components/SmoothLine';
-import SetGradient from './components/SetGradient';
+import Gradient from './components/Gradient';
 import Menu from './components/Menu';
+import Preloader from './components/Preloader';
 import locale from '../assets/locale.json';
 
 console.log(locale);
@@ -10,17 +11,18 @@ console.log(locale);
 document.documentElement.setAttribute('data-useragent', navigator.userAgent);
 
 // Set symbol sprite
-let symbolSprite = new SymbolSprite(
-	'../images/symbol-sprite/symbol-sprite.html'
-);
-symbolSprite.toInject();
+SymbolSprite.inject('../images/symbol-sprite/symbol-sprite.html');
+
+// Init preloader
+let preloader = new Preloader('.preloader');
+preloader.init();
 
 // Init smooth line
 let smoothLine = new SmoothLine();
 smoothLine.eachItems();
 
 // Set gradient
-SetGradient.inject(document.querySelector('.main'));
+Gradient.inject('.main');
 
 // Toggle menu
 let menu = new Menu('.header__humburger');

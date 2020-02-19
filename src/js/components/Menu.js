@@ -3,6 +3,7 @@ const popups = document.querySelectorAll('.popup');
 export default class Menu {
 	constructor(menu) {
 		this.menu = document.querySelector(menu);
+		this._toggleHandler = this._toggleHandler.bind(this);
 	}
 
 	_toggleHandler(e) {
@@ -15,6 +16,6 @@ export default class Menu {
 	}
 
 	toggleMenu() {
-		this.menu.addEventListener('click', this._toggleHandler.bind(this), false);
+		this.menu.addEventListener('click', this._toggleHandler, false);
 	}
 }

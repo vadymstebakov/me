@@ -9,6 +9,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetWebpackPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
+const autoprefixer = require('autoprefixer');
 const isDev = process.env.NODE_ENV === 'development';
 const isProd = !isDev;
 
@@ -73,6 +74,13 @@ const styleLoaders = () => {
 		{
 			loader: 'css-loader',
 			options: {
+				sourceMap: isDev,
+			},
+		},
+		{
+			loader: 'postcss-loader',
+			options: {
+				plugins: [autoprefixer()],
 				sourceMap: isDev,
 			},
 		},

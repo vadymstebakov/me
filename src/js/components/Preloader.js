@@ -1,3 +1,9 @@
+import SmoothLine from './SmoothLine';
+import Text from './Text';
+
+const smoothLine = new SmoothLine();
+const text = new Text('type-text');
+
 export default class Preloader {
 	constructor(selector) {
 		this.selector = document.querySelector(selector);
@@ -7,8 +13,9 @@ export default class Preloader {
 		return new Promise(resolve => {
 			setTimeout(resolve, 500);
 		}).then(() => {
+			smoothLine.eachItems();
 			this.selector.classList.remove('loading');
-			// typingFn.stratTyping();
+			text.initTyping(500);
 		});
 	}
 

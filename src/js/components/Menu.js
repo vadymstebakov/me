@@ -10,12 +10,12 @@ export default class Menu {
 		e.preventDefault();
 		this.menu.closest('#header').classList.toggle('active');
 
-		popups.forEach(popup => {
+		[...popups].forEach(popup => {
 			popup.classList.toggle('popup--update-padding');
 		});
 	}
 
-	toggleMenu() {
+	init() {
 		this.menu.addEventListener('click', this._toggleHandler, false);
 	}
 }

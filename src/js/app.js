@@ -3,9 +3,10 @@ import SmoothLine from './components/SmoothLine';
 import Gradient from './components/Gradient';
 import Menu from './components/Menu';
 import Preloader from './components/Preloader';
-import locale from '../assets/locale.json';
+import Popup from './components/Popup';
+// import locale from '../assets/locale.json';
 
-console.log(locale);
+// console.log(locale);
 
 // Check useagent
 document.documentElement.setAttribute('data-useragent', navigator.userAgent);
@@ -14,19 +15,22 @@ document.documentElement.setAttribute('data-useragent', navigator.userAgent);
 SymbolSprite.inject('../images/symbol-sprite/symbol-sprite.html');
 
 // Init preloader
-let preloader = new Preloader('.preloader');
+const preloader = new Preloader('.preloader');
 preloader.init();
-
-// Init smooth line
-let smoothLine = new SmoothLine();
-smoothLine.eachItems();
 
 // Set gradient
 Gradient.inject('.main');
 
+// Init smooth line
+const smoothLine = new SmoothLine();
+
 // Toggle menu
-let menu = new Menu('.header__humburger');
-menu.toggleMenu();
+const menu = new Menu('.header__humburger');
+menu.init();
+
+// Init popup
+const popup = new Popup('.popup');
+popup.init();
 
 // Resize function
 (function fnResize() {

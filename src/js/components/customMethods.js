@@ -1,5 +1,5 @@
-export const asyncForEach = (arr, cb) => {
+export const asyncForEach = (arr, cb, delay = 0) => {
 	arr.forEach((item, index, array) => {
-		setTimeout(cb, 0, [item, index, array]);
+		setTimeout(cb, delay, [item, index, array]);
 	});
 };

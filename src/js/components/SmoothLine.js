@@ -7,7 +7,7 @@ let newWidth = nav.clientWidth;
 let oldWidth;
 
 const handleSmoothLine = el => {
-	links.forEach(link => {
+	[...links].forEach(link => {
 		link.classList.remove('active');
 	});
 
@@ -33,13 +33,13 @@ export default class SmoothLine {
 		e.preventDefault();
 		const link = e.target.closest('.header__nav-link');
 
-		if (!link) return;
+		if (!link || link.classList.contains('active')) return;
 
 		handleSmoothLine(link);
 	}
 
 	eachItems() {
-		asyncForEach(links, ([link]) => {
+		asyncForEach([...links], ([link]) => {
 			activeSmoothLine(link);
 		});
 	}

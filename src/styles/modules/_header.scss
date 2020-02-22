@@ -11,6 +11,14 @@
 	position: relative;
 	z-index: 5;
 
+	&:hover {
+
+		&~.main .main__text-wrap,
+		&~.popup {
+			will-change: opacity;
+		}
+	}
+
 	&.active {
 
 		.header__nav {

@@ -4,9 +4,7 @@ import Gradient from './components/Gradient';
 import Menu from './components/Menu';
 import Preloader from './components/Preloader';
 import Popup from './components/Popup';
-// import locale from '../assets/locale.json';
-
-// console.log(locale);
+import Language from './components/Language';
 
 // Check useagent
 document.documentElement.setAttribute('data-useragent', navigator.userAgent);
@@ -24,6 +22,9 @@ Gradient.inject('.main');
 // Init smooth line
 const smoothLine = new SmoothLine();
 smoothLine.init();
+
+// Init laguage
+Language.init(document.getElementById('language'));
 
 // Toggle menu
 const menu = new Menu('.header__humburger');

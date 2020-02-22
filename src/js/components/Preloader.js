@@ -3,6 +3,7 @@ import Text from './Text';
 
 const smoothLine = new SmoothLine();
 const text = new Text('type-text');
+let delayId, hideDelayId;
 
 export default class Preloader {
 	constructor(selector) {
@@ -11,8 +12,10 @@ export default class Preloader {
 
 	init() {
 		return new Promise(resolve => {
-			setTimeout(resolve, 500);
+			delayId = setTimeout(resolve, 500);
 		}).then(() => {
+			clearTimeout(delayId);
+
 			smoothLine.eachItems();
 			this.selector.classList.remove('loading');
 			text.initTyping(500);
@@ -27,7 +30,10 @@ export default class Preloader {
 		this.selector.classList.remove('loading');
 	}
 
-	delayedHide() {
-		setTimeout(() => this.selector.classList.remove('loading'), 400);
+	delayedHide(delay) {
+		hideDelayId = setTimeout(() => {
+			clearTimeout(hideDelayId);
+			return this.selector.classList.remove('loading');
+		}, delay);
 	}
 }

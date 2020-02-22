@@ -1,5 +1,5 @@
 const langSwitcher = document.querySelector('.switcher--disable');
-let makeType;
+let makeType, timerId;
 
 export default class Text {
 	constructor(wrap) {
@@ -26,7 +26,9 @@ export default class Text {
 		let newString = this.newString;
 		textEl.textContent = '|';
 
-		setTimeout(() => {
+		timerId = setTimeout(() => {
+			clearTimeout(timerId);
+
 			textEl.classList.add('active');
 			textEl.textContent = '';
 

@@ -23,6 +23,7 @@ Gradient.inject('.main');
 
 // Init smooth line
 const smoothLine = new SmoothLine();
+smoothLine.init();
 
 // Toggle menu
 const menu = new Menu('.header__humburger');

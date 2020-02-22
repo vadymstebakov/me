@@ -10,8 +10,11 @@ const OptimizeCssAssetWebpackPlugin = require('optimize-css-assets-webpack-plugi
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 const autoprefixer = require('autoprefixer');
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
+
 const isDev = process.env.NODE_ENV === 'development';
 const isProd = !isDev;
+const regexImages = /\.(png|jpe?g|svg|gif)$/i;
 
 // Optimization
 const optimization = () => {
@@ -165,6 +168,13 @@ const plugins = () => {
 		new MiniCssExtractPlugin({
 			filename: `styles/${filename('css')}`,
 		}),
+		new ImageminPlugin({
+			disable: isDev,
+			test: regexImages,
+			pngquant: {
+				quality: '95-100',
+			},
+		}),
 	];
 
 	if (isProd) base.push(new BundleAnalyzerPlugin());
@@ -177,7 +187,7 @@ module.exports = {
 	context: path.resolve(__dirname, 'src'),
 	mode: 'development',
 	entry: {
-		main: ['@babel/polyfill', './js/index.js'],
+		main: ['@babel/polyfill', 'element-closest-polyfill', './js/index.js'],
 	},
 	output: {
 		filename: `js/${filename('js')}`,
@@ -185,9 +195,13 @@ module.exports = {
 	},
 	optimization: optimization(),
 	devServer: {
+		compress: true,
 		host: ip.address(),
 		port: 4200,
 		hot: isDev,
+		overlay: {
+			errors: true,
+		},
 	},
 	devtool: isDev ? 'source-map' : '',
 	plugins: plugins(),
@@ -208,7 +222,7 @@ module.exports = {
 				use: styleLoaders(),
 			},
 			{
-				test: /\.(png|jpe?g|svg|gif)$/i,
+				test: regexImages,
 				include: /images/,
 				use: fileLoaders(
 					(file, resourcePath, context) => {

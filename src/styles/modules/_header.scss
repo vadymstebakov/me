@@ -165,19 +165,19 @@
 		border-radius: 0 0 .4em .4em;
 		transition: all .3s;
 	}
+}
 
-	&__form {
-		flex-shrink: 0;
-		transition: opacity .3s;
+.switcher {
+	flex-shrink: 0;
+	transition: opacity .3s;
 
-		&--disable,
-		&--not-allowed {
-			cursor: not-allowed;
-			opacity: .3;
+	&--disable,
+	&--not-allowed {
+		cursor: not-allowed;
+		opacity: .3;
 
-			&>* {
-				pointer-events: none;
-			}
+		& * {
+			pointer-events: none;
 		}
 	}
 }

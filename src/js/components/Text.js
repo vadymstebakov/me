@@ -1,4 +1,4 @@
-const langForm = document.querySelector('.header__form--disable');
+const langSwitcher = document.querySelector('.switcher--disable');
 let makeType;
 
 export default class Text {
@@ -41,7 +41,7 @@ export default class Text {
 			}
 
 			Promise.resolve(makeType).then(() =>
-				langForm.classList.remove('header__form--disable')
+				langSwitcher.classList.remove('switcher--disable')
 			);
 		}, delay);
 	}

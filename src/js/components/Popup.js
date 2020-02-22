@@ -18,18 +18,24 @@ export default class Popup {
 	}
 
 	_delegation(e, selector) {
-		const target = e.target.closest(`.${selector}`);
+		let target = e.target;
 
-		if (!target) return;
+		if (target.correspondingUseElement) {
+			target = target.correspondingUseElement;
+		}
+
+		const el = target.closest(`.${selector}`);
+
+		if (!el) return;
 
 		this.__checkActivePopup();
 
-		if (selector === 'hide-popup') {
+		if (el.matches('.hide-popup')) {
 			text.show();
-		} else {
+		} else if (el.matches('.show-popup')) {
 			text.hide();
 
-			const activePopup = `.${target.getAttribute('data-popup')}`;
+			const activePopup = `.${el.getAttribute('data-popup')}`;
 			document.querySelector(activePopup).classList.add('active');
 		}
 	}

@@ -22,20 +22,25 @@ const activeSmoothLine = el =>
 export default class SmoothLine {
 	constructor() {
 		this._checkSmoothLine = this._checkSmoothLine.bind(this);
-		this._initSmoothLine();
-	}
-
-	_initSmoothLine() {
-		nav.addEventListener('click', this._checkSmoothLine, false);
 	}
 
 	_checkSmoothLine(e) {
 		e.preventDefault();
-		const link = e.target.closest('.header__nav-link');
+		let target = e.target;
+
+		if (target.correspondingUseElement) {
+			target = target.correspondingUseElement;
+		}
+
+		const link = target.closest('.header__nav-link');
 
 		if (!link || link.classList.contains('active')) return;
 
 		handleSmoothLine(link);
+	}
+
+	init() {
+		nav.addEventListener('click', this._checkSmoothLine, false);
 	}
 
 	eachItems() {

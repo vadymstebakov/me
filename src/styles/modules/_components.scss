@@ -10,14 +10,7 @@
 	@extend %fixedBlock;
 	display: none;
 	background-color: $bgMain;
-	z-index: 20;
-}
-
-html[data-useragent*='MSIE 10.0'] {
-
-	& .blocked {
-		display: block;
-	}
+	z-index: 100;
 }
 
 // Preloader-----------------

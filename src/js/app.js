@@ -1,3 +1,4 @@
+import IE from './components/IE';
 import SymbolSprite from './components/SymbolSprite';
 import SmoothLine from './components/SmoothLine';
 import Gradient from './components/Gradient';
@@ -5,9 +6,11 @@ import Menu from './components/Menu';
 import Preloader from './components/Preloader';
 import Popup from './components/Popup';
 import Language from './components/Language';
+import Transorm from './components/Transform';
+import Resize from './components/Resize';
 
-// Check useagent
-document.documentElement.setAttribute('data-useragent', navigator.userAgent);
+// Check IE
+IE.init();
 
 // Set symbol sprite
 SymbolSprite.inject('../images/symbol-sprite/symbol-sprite.html');
@@ -34,16 +37,11 @@ menu.init();
 const popup = new Popup('.popup');
 popup.init();
 
-// Resize function
-(function fnResize() {
-	let doit;
+// Init transform effect
+Transorm.init(
+	document.querySelector('.main'),
+	document.getElementById('type-text')
+);
 
-	function resized() {
-		smoothLine.checkResize();
-	}
-
-	window.onresize = () => {
-		clearTimeout(doit);
-		doit = setTimeout(resized, 50);
-	};
-})();
+// Init resize
+Resize.init();

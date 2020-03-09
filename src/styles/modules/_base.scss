@@ -56,7 +56,6 @@ body {
 		color: $color01;
 		position: relative;
 		white-space: nowrap;
-		font-size: 65px;
 		font-weight: 700;
 		line-height: 1em;
 		transform: perspective(var(--p)) translate(var(--tx), var(--ty)) rotateX(var(--rx)) rotateY(var(--ry));
@@ -70,12 +69,16 @@ body {
 			opacity: 0;
 		}
 
-		@include sm {
+		@include max_w_479 {
+			font-size: 35px;
+		}
+
+		@include min_w_480 {
 			font-size: 50px;
 		}
 
-		@include xs {
-			font-size: 35px;
+		@include min_w_768 {
+			font-size: 65px;
 		}
 	}
 

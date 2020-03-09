@@ -53,10 +53,13 @@
 		margin-left: 15px;
 		font-family: $caveat;
 		font-weight: 700;
-		font-size: 25px;
 
-		@include xs {
+		@include max_w_479 {
 			font-size: 23px;
+		}
+
+		@include min_w_480 {
+			font-size: 25px;
 		}
 	}
 
@@ -100,7 +103,6 @@
 	}
 
 	&__nav {
-		font-size: 20px;
 		background-color: $bgColor03;
 		padding: .5em;
 		position: absolute;
@@ -114,8 +116,12 @@
 		overflow: hidden;
 		transition: top .4s;
 
-		@include xs {
+		@include max_w_479 {
 			font-size: 18px;
+		}
+
+		@include min_w_480 {
+			font-size: 20px;
 		}
 	}
 

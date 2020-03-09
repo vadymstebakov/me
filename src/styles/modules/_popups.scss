@@ -15,10 +15,13 @@
 	padding: 60px 10px 10px;
 
 	&--update-padding {
-		padding: 120px 10px 10px;
 
-		@include xs {
+		@include max_w_479 {
 			padding: 113px 10px 10px;
+		}
+
+		@include min_w_480 {
+			padding: 120px 10px 10px;
 		}
 	}
 

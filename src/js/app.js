@@ -13,7 +13,7 @@ import Resize from './components/Resize';
 IE.init();
 
 // Set symbol sprite
-SymbolSprite.inject('../images/symbol-sprite/symbol-sprite.html');
+SymbolSprite.inject('../images/symbol-sprite/symbol-sprite.html', 24);
 
 // Init preloader
 const preloader = new Preloader('.preloader');
@@ -38,10 +38,7 @@ const popup = new Popup('.popup');
 popup.init();
 
 // Init transform effect
-Transorm.init(
-	document.querySelector('.main'),
-	document.getElementById('type-text')
-);
+Transorm.init(document.querySelector('.main'), document.getElementById('type-text'));
 
 // Init resize
 Resize.init();

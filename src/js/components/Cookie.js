@@ -1,42 +1,38 @@
 export default class Cookie {
-	static getCookie(name) {
-		let matches = document.cookie.match(
-			new RegExp(
-				`(?:^|; )${name.replace(/([.$?*|{}()[]\\\/\+^])/g, '\\$1')}=([^;]*)`
-			)
-		);
+    static getCookie(name) {
+        let matches = document.cookie.match(
+            new RegExp(`(?:^|; )${name.replace(/([.$?*|{}()[]\\\/\+^])/g, '\\$1')}=([^;]*)`)
+        );
 
-		return matches ? decodeURIComponent(matches[1]) : undefined;
-	}
+        return matches ? decodeURIComponent(matches[1]) : undefined;
+    }
 
-	static setCookie(name, value, options = {}) {
-		let updatedCookie = `${encodeURIComponent(name)}=${encodeURIComponent(
-			value
-		)}`;
+    static setCookie(name, value, options = {}) {
+        let updatedCookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}`;
 
-		options = {
-			path: '/',
-			...options,
-		};
+        options = {
+            path: '/',
+            ...options,
+        };
 
-		for (let optionKey in options) {
-			let optionValue = options[optionKey];
-			updatedCookie += `; ${optionKey}`;
+        for (let optionKey in options) {
+            let optionValue = options[optionKey];
+            updatedCookie += `; ${optionKey}`;
 
-			if (optionValue !== true) {
-				updatedCookie += `=${optionValue}`;
-			}
-		}
+            if (optionValue !== true) {
+                updatedCookie += `=${optionValue}`;
+            }
+        }
 
-		document.cookie = updatedCookie;
-	}
+        document.cookie = updatedCookie;
+    }
 
-	static deleteCookie(name) {
-		let date = new Date();
-		date.setMonth(date.getMonth() - 1);
+    static deleteCookie(name) {
+        let date = new Date();
+        date.setMonth(date.getMonth() - 1);
 
-		Cookie.setCookie(name, '', {
-			expires: date,
-		});
-	}
+        Cookie.setCookie(name, '', {
+            expires: date,
+        });
+    }
 }

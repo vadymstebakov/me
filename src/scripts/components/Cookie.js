@@ -1,6 +1,6 @@
 export default class Cookie {
     static getCookie(name) {
-        let matches = document.cookie.match(
+        const matches = document.cookie.match(
             new RegExp(`(?:^|; )${name.replace(/([.$?*|{}()[]\\\/\+^])/g, '\\$1')}=([^;]*)`)
         );
 
@@ -15,20 +15,20 @@ export default class Cookie {
             ...options,
         };
 
-        for (let optionKey in options) {
-            let optionValue = options[optionKey];
-            updatedCookie += `; ${optionKey}`;
+        Object.keys(options).forEach(key => {
+            const optionValue = options[key];
+            updatedCookie += `; ${key}`;
 
             if (optionValue !== true) {
                 updatedCookie += `=${optionValue}`;
             }
-        }
+        });
 
         document.cookie = updatedCookie;
     }
 
     static deleteCookie(name) {
-        let date = new Date();
+        const date = new Date();
         date.setMonth(date.getMonth() - 1);
 
         Cookie.setCookie(name, '', {

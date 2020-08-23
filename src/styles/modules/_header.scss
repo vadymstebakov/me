@@ -1,4 +1,4 @@
-%humburger {
+%humbugger {
 	position: absolute;
 	background-color: $bgColor02;
 	height: 3px;
@@ -17,7 +17,7 @@
 			top: 100%;
 		}
 
-		.header__humburger {
+		.header__humbugger {
 
 			span {
 				background-color: transparent;
@@ -63,7 +63,7 @@
 		}
 	}
 
-	&__humburger {
+	&__humbugger {
 		display: inline-block;
 		width: 50px;
 		height: 50px;
@@ -82,7 +82,7 @@
 		}
 
 		span {
-			@extend %humburger;
+			@extend %humbugger;
 			top: 50%;
 			left: 50%;
 			transform: translate(-50%, -50%);
@@ -90,7 +90,7 @@
 			&:before,
 			&:after {
 				content: "";
-				@extend %humburger;
+				@extend %humbugger;
 				top: 0;
 				left: 0;
 				transform: translateY(-8px);

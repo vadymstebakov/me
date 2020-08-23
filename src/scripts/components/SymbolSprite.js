@@ -1,14 +1,13 @@
 export default class SymbolSprite {
-    static inject(path, hours) {
-        if (!document.createElementNS || !document.createElementNS('http://www.w3.org/2000/svg', 'svg').createSVGRect)
+    static init(path, hours) {
+        if (!document.createElementNS || !document.createElementNS('http://www.w3.org/2000/svg', 'svg').createSVGRect) {
             return true;
-
+        }
         const expirationSVGDate = new Date(new Date().getTime() + hours * 60 * 60 * 1000);
         const oldExpirationSVGDate = new Date(localStorage.getItem('expirationSVGDate'));
-        let revision = 1;
-        let isLocalStorage = 'localStorage' in window && window['localStorage'] !== null;
+        const revision = 1;
+        const isLocalStorage = 'localStorage' in window && window['localStorage'] !== null;
         let data;
-
         const insertIT = () => document.body.insertAdjacentHTML('afterbegin', data);
         const insert = () => (document.body ? insertIT() : document.addEventListener('DOMContentLoaded', insertIT));
         const clearSVGData = () => {
@@ -16,7 +15,6 @@ export default class SymbolSprite {
             localStorage.removeItem('inlineSVGRev');
             localStorage.removeItem('expirationSVGDate');
         };
-
         if (
             isLocalStorage &&
             Number(localStorage.getItem('inlineSVGRev')) === revision &&
@@ -30,7 +28,6 @@ export default class SymbolSprite {
         } else {
             clearSVGData();
         }
-
         try {
             const request = new XMLHttpRequest();
             request.open('GET', path);
@@ -45,7 +42,6 @@ export default class SymbolSprite {
                     }
                 }
             };
-
             request.send();
         } catch (e) {
             alert(`Error: ${e}`);

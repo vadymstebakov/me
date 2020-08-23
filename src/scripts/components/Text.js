@@ -33,6 +33,7 @@ export default class Text {
             textEl.textContent = '';
 
             for (let i = 0; i < text.length; i++) {
+                // eslint-disable-next-line no-loop-func
                 makeType = new Promise(resolve => {
                     setTimeout(() => {
                         newString += text[i];

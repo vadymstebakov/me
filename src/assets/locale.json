@@ -2,7 +2,7 @@
     "en": {
 		"header": {
 			"name": "Vadym Stebakov",
-        	"menu": ["Home", "About me", "Portfolio", "Contacts"]
+            "menu": ["Home", "About me", "Portfolio", "Contacts"]
 		},
         "home": {
             "main": "Web development"
@@ -105,7 +105,7 @@
     "ru": {
 		"header": {
 			"name": "Вадим Стебаков",
-        	"menu": ["Главная", "Обо мне", "Портфолио", "Контакты"]
+            "menu": ["Главная", "Обо мне", "Портфолио", "Контакты"]
 		},
         "home": {
             "main": "Веб разработка"

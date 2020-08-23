@@ -1,10 +1,8 @@
-import {asyncForEach} from './customMethods';
+import { asyncForEach } from '@helpers/utils';
 
 const nav = document.querySelector('.header__nav');
 const links = nav.querySelectorAll('.header__nav-link');
 const line = nav.querySelector('.header__line');
-let newWidth = nav.clientWidth;
-let oldWidth;
 
 const handleSmoothLine = el => {
     [...links].forEach(link => {
@@ -19,7 +17,8 @@ const handleSmoothLine = el => {
 const activeSmoothLine = el => el.classList.contains('active') && handleSmoothLine(el);
 
 export default class SmoothLine {
-    constructor() {
+    constructor(options) {
+        this.emitter = options.emitter;
         this._checkSmoothLine = this._checkSmoothLine.bind(this);
     }
 
@@ -40,6 +39,7 @@ export default class SmoothLine {
 
     init() {
         nav.addEventListener('click', this._checkSmoothLine, false);
+        this._checkResize();
     }
 
     eachItems() {
@@ -48,12 +48,9 @@ export default class SmoothLine {
         });
     }
 
-    checkResize() {
-        oldWidth = nav.clientWidth;
-
-        if (newWidth !== oldWidth) {
-            newWidth = nav.clientWidth;
+    _checkResize() {
+        this.emitter.on('page:resized', ([width, height]) => {
             this.eachItems();
-        }
+        });
     }
 }

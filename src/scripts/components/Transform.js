@@ -1,4 +1,4 @@
-import {rAF} from './customMethods';
+import { rAF } from '@helpers/utils';
 import is from 'is_js';
 
 export default class Transform {

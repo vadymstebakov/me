@@ -5,11 +5,7 @@
 
 // Placeholder
 @mixin input-placeholder {
-	&.placeholder {
-		@content;
-	}
-
-	&:-moz-placeholder {
+	&::placeholder {
 		@content;
 	}
 
@@ -17,7 +13,11 @@
 		@content;
 	}
 
-	&:-ms-input-placeholder {
+	&::-moz-placeholder {
+		@content;
+	}
+
+	&::-ms-input-placeholder {
 		@content;
 	}
 

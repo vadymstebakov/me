@@ -1,17 +1,20 @@
 const path = require('path');
 const glob = require('glob');
 const ip = require('ip');
+const chalk = require('chalk');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const ScriptExtHTMLPlugin = require('script-ext-html-webpack-plugin');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetWebpackPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
-const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const autoprefixer = require('autoprefixer');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 
+// eslint-disable-next-line no-console
+const log = console.log;
 const isDev = process.env.NODE_ENV === 'development';
 const isProd = !isDev;
 const regexImages = /\.(png|jpe?g|svg|gif)$/i;
@@ -36,7 +39,7 @@ const multiplesHTMLPages = () => {
     const HTMLPages = [];
     const files = glob.sync(path.resolve(__dirname, 'src/*.html'), {});
 
-    const sortFiles = files.filter(file => /[^index]\.html$/.test(file));
+    const sortFiles = files.filter(file => /^((?!index.html).)*$/.test(file));
 
     const fileNames = sortFiles.map(sortFile => {
         const splitFile = sortFile.split('/');
@@ -46,7 +49,7 @@ const multiplesHTMLPages = () => {
     HTMLPages.push(...fileNames);
 
     //NOTE: How many pages you will get
-    console.log(`Pages: ${HTMLPages.join(', ')}`);
+    log(chalk.black.bgWhite.bold(`### Get pages: ${chalk.red.bgWhite.bold(HTMLPages.join(', '))}`));
 
     return HTMLPages.map(
         HTMLPage =>
@@ -59,6 +62,18 @@ const multiplesHTMLPages = () => {
                 },
             })
     );
+};
+
+// SVG Sprite
+const putSVGSprite = () => {
+    return new HTMLWebpackPlugin({
+        filename: 'images/symbol-sprite/symbol-sprite.html',
+        template: './images/symbol-sprite/symbol-sprite.html',
+        inject: false,
+        minify: {
+            collapseWhitespace: isProd,
+        },
+    });
 };
 
 // Style loaders
@@ -156,12 +171,21 @@ const plugins = () => {
             defer: ['main'],
         }),
         new CleanWebpackPlugin(),
-        new CopyWebpackPlugin([
-            {
-                from: path.resolve(__dirname, 'src/images/**/**.*'),
-                to: path.resolve(__dirname, 'dist'),
-            },
-        ]),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: path.resolve(__dirname, 'src/images/'),
+                    to: 'images/',
+                    force: true,
+                },
+                // {
+                //     from: path.resolve(__dirname, 'src/fonts/'),
+                //     to: 'fonts/',
+                //     force: true,
+                // },
+            ],
+        }),
+        putSVGSprite(),
         new MiniCssExtractPlugin({
             filename: `styles/${filename('css')}`,
         }),
@@ -184,10 +208,10 @@ module.exports = {
     context: path.resolve(__dirname, 'src'),
     mode: 'development',
     entry: {
-        main: ['@babel/polyfill', 'element-closest-polyfill', './js/index.js'],
+        main: ['@babel/polyfill', 'element-closest-polyfill', './scripts/index.js'],
     },
     output: {
-        filename: `js/${filename('js')}`,
+        filename: `scripts/${filename('js')}`,
         path: path.resolve(__dirname, 'dist'),
     },
     optimization: optimization(),
@@ -196,6 +220,7 @@ module.exports = {
         host: ip.address(),
         port: 3000,
         // hot: isDev,
+        clientLogLevel: 'warn' || 'error' || 'warning',
         overlay: {
             errors: true,
         },
@@ -205,13 +230,17 @@ module.exports = {
     resolve: {
         alias: {
             '@': path.resolve(__dirname, 'src'),
+            '@scripts': path.resolve(__dirname, 'src/scripts'),
+            '@helpers': path.resolve(__dirname, 'src/scripts/helpers'),
+            '@components': path.resolve(__dirname, 'src/scripts/components'),
+            '@assets': path.resolve(__dirname, 'src/assets'),
         },
     },
     module: {
         rules: [
             {
                 test: /\.js$/,
-                include: /js/,
+                include: /scripts/,
                 use: jsLoaders(),
             },
             {

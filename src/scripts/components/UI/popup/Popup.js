@@ -1,6 +1,6 @@
-import Text from './Text';
+import TypingText from '../typingText/TypingText';
 
-const text = new Text('type-text');
+const text = new TypingText('type-text');
 
 export default class Popup {
     constructor(popups) {

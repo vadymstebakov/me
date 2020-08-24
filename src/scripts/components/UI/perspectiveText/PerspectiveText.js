@@ -1,7 +1,7 @@
 import { rAF } from '@helpers/utils';
 import is from 'is_js';
 
-export default class Transform {
+export default class PerspectiveText {
     static _mouseMoveHandler(el) {
         return e => {
             const x = e.pageX - el.offsetLeft - el.offsetWidth / 2;
@@ -17,7 +17,7 @@ export default class Transform {
         };
     }
 
-    static _resetTransform(el) {
+    static _resetPerspectiveText(el) {
         return () => {
             el.classList.add('t-transition');
             el.classList.remove('t-transition');
@@ -32,8 +32,7 @@ export default class Transform {
     static init(wrap, el) {
         if (is.tablet() || is.mobile() || is.ie() || is.edge()) return;
 
-        wrap.addEventListener('mousemove', rAF(Transform._mouseMoveHandler(el)), false);
-
-        wrap.addEventListener('mouseleave', rAF(Transform._resetTransform(el)), false);
+        wrap.addEventListener('mousemove', rAF(PerspectiveText._mouseMoveHandler(el)), false);
+        wrap.addEventListener('mouseleave', rAF(PerspectiveText._resetPerspectiveText(el)), false);
     }
 }

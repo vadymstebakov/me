@@ -1,7 +1,7 @@
 const langSwitcher = document.querySelector('.switcher--disable');
 let makeType, timerId;
 
-export default class Text {
+export default class TypingText {
     constructor(wrap) {
         this.wrap = document.getElementById(wrap);
         this.textEl = this.wrap.querySelector('.main__text');

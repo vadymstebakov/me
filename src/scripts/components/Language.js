@@ -1,5 +1,5 @@
-import Preloader from './Preloader';
-import SmoothLine from './SmoothLine';
+import Preloader from './UI/preloader/Preloader';
+import SmoothLine from './UI/smoothLine/SmoothLine';
 import Cookie from './Cookie';
 import locale from '@assets/locale.json';
 
@@ -7,8 +7,8 @@ let delayId;
 
 export default class Language {
     constructor(options) {
-        this.preloader = new Preloader('.preloader', { emitter: options.emitter });
-        this.smoothLine = new SmoothLine({ emitter: options.emitter });
+        this.preloader = new Preloader('.preloader', {});
+        this.smoothLine = new SmoothLine({});
     }
 
     _changeText(name, object, startIndex) {

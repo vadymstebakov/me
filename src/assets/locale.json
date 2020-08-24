@@ -7,6 +7,16 @@
         "home": {
             "main": "Web development"
         },
+        "contacts": {
+            "title": "Contacts",
+            "box-title": "Get in touch"
+        },
+        "portfolio": {
+            "title": "portfolio"
+        },
+        "about-me": {
+            "title": "About me"
+        },
         "example": {
             "statistics": [{
                     "main": "Viral effect",
@@ -84,7 +94,7 @@
                 }
             ]
         },
-        "contacts": {
+        "contacts1": {
             "headline": "Any questions? Contact us!",
             "description": "We will be happy to communicate.",
             "contacts": {
@@ -109,6 +119,16 @@
 		},
         "home": {
             "main": "Веб разработка"
+        },
+        "contacts": {
+            "title": "Контакты",
+            "box-title": "Связаться"
+        },
+        "portfolio": {
+            "title": "Портфолио"
+        },
+        "about-me": {
+            "title": "Обо мне"
         },
         "example": {
             "statistics": [{
@@ -187,7 +207,7 @@
                 }
             ]
         },
-        "contacts": {
+        "contacts1": {
             "headline": "Остались вопросы? Напишите нам!",
             "description": "Мы будем рады сотрудничеству.",
             "contacts": {

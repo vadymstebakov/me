@@ -1,4 +1,5 @@
 .popup {
+    font-size: 10px;
 	position: fixed;
     top: 0;
     left: 0;
@@ -12,16 +13,16 @@
 	overflow: hidden;
 	display: flex;
 	flex-direction: column;
-	padding: 60px 10px 10px;
+	padding: 6em 1em 1em;
 
 	&--update-padding {
 
-		@include max_w_479 {
-			padding: 113px 10px 10px;
+		@include max-w-xs {
+			padding: 11.3em 1em 1em;
 		}
 
-		@include min_w_480 {
-			padding: 120px 10px 10px;
+		@include min-w-sm {
+			padding: 12em 1em 1em;
 		}
 	}
 
@@ -37,7 +38,7 @@
 		position: relative;
 		height: 100%;
 		width: 100%;
-		max-width: 1250px;
+		max-width: 125em;
 		margin: 0 auto;
 		background-color: $bgColor01;
 	}
@@ -48,8 +49,8 @@
 		-webkit-overflow-scrolling: touch;
 
 		&::-webkit-scrollbar {
-			width: 8px;
-			height: 8px;
+			width: 0.8em;
+			height: 0.8em;
 		}
 		
 		&::-webkit-scrollbar-track {
@@ -59,5 +60,9 @@
 		&::-webkit-scrollbar-thumb {
 			background-color: #0078d4;
 		}
-	}
+    }
+    
+    &__box {
+        margin-top: 2em;
+    }
 }

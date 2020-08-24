@@ -181,3 +181,53 @@
 		}
 	}
 }
+
+// Hover border
+.hover-border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    &:before,
+    &:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 0;
+        height: 0.2em;
+        background-color: $color02;
+        transition: width 0.2s;
+        transition-delay: 0.2s;
+    }
+
+    &:after {
+        top: auto;
+        bottom: 0;
+        right: auto;
+        left: 0;
+        transition-delay: 0.6s;
+    }
+
+    & i:before,
+    & i:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0.2em;
+        height: 0;
+        background-color: $color02;
+        transition: height 0.2s;
+    }
+
+    & i:after {
+        left: auto;
+        right: 0;
+        top: auto;
+        bottom: 0;
+        transition-delay: 0.4s;
+    }
+}

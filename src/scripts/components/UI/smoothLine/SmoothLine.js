@@ -1,20 +1,9 @@
 import { asyncForEach } from '@helpers/utils';
+import { handleSmoothLine, activeSmoothLine } from './smoothLine.function';
 
 const nav = document.querySelector('.header__nav');
 const links = nav.querySelectorAll('.header__nav-link');
 const line = nav.querySelector('.header__line');
-
-const handleSmoothLine = el => {
-    [...links].forEach(link => {
-        link.classList.remove('active');
-    });
-
-    line.style.width = `${el.offsetWidth}px`;
-    line.style.left = `${el.offsetLeft}px`;
-    el.classList.add('active');
-};
-
-const activeSmoothLine = el => el.classList.contains('active') && handleSmoothLine(el);
 
 export default class SmoothLine {
     constructor(options) {
@@ -34,7 +23,7 @@ export default class SmoothLine {
 
         if (!link || link.classList.contains('active')) return;
 
-        handleSmoothLine(link);
+        handleSmoothLine(link, links, line);
     }
 
     init() {
@@ -44,7 +33,7 @@ export default class SmoothLine {
 
     eachItems() {
         asyncForEach([...links], ([link]) => {
-            activeSmoothLine(link);
+            activeSmoothLine(link, links, line);
         });
     }
 

@@ -49,16 +49,16 @@
 		flex-grow: 1;
 	}
 
-	&__name {
+	h3.header__name {
 		margin-left: 15px;
 		font-family: $caveat;
 		font-weight: 700;
 
-		@include max_w_479 {
+		@include max-w-xs {
 			font-size: 23px;
 		}
 
-		@include min_w_480 {
+		@include min-w-sm {
 			font-size: 25px;
 		}
 	}
@@ -116,11 +116,11 @@
 		overflow: hidden;
 		transition: top .4s;
 
-		@include max_w_479 {
+		@include max-w-xs {
 			font-size: 18px;
 		}
 
-		@include min_w_480 {
+		@include min-w-sm {
 			font-size: 20px;
 		}
 	}

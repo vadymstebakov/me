@@ -1,3 +1,5 @@
+import is from 'is_js';
+
 export const asyncForEach = (arr, cb, delay = 0) => {
     arr.forEach((item, index, array) => {
         setTimeout(cb, delay, [item, index, array]);
@@ -40,6 +42,12 @@ export const rAF = cb => {
 };
 
 export const prependChild = (parent, child) => parent.insertBefore(child, parent.firstElementChild);
+
+export const isIE = () => {
+    if (is.ie(10) || is.ie(9)) {
+        document.body.innerHTML = '';
+    }
+};
 
 export const getScrollbarWidth = () => {
     const outer = document.createElement('div');

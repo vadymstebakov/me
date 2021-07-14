@@ -9,14 +9,12 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const ImageminPlugin = require('imagemin-webpack-plugin').default;
 
 // eslint-disable-next-line no-console
 const log = console.log;
 const isDev = process.env.NODE_ENV === 'development';
 const isProd = !isDev;
 const isStats = process.env.NODE_ENV === 'stats';
-const regexImages = /\.(png|jpe?g|svg|gif)$/i;
 
 // Filename
 const filename = (ext, name = '[name]') => (isDev ? `${name}.${ext}` : `${name}.[contenthash:10].min.${ext}`);
@@ -181,13 +179,6 @@ const plugins = () => {
                 },
             ],
         }),
-        new ImageminPlugin({
-            disable: isDev,
-            test: regexImages,
-            pngquant: {
-                quality: '60-100',
-            },
-        }),
         ...templatesHTML(),
     ];
 
@@ -221,7 +212,7 @@ module.exports = {
                 use: styleLoaders(),
             },
             {
-                test: regexImages,
+                test: /\.(png|jpe?g|svg|gif)$/i,
                 include: /images/,
                 use: fileLoaders(),
             },

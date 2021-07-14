@@ -1,79 +1,93 @@
 const path = require('path');
-const glob = require('glob');
-const ip = require('ip');
+const environment = require('./configuration/environment');
+const fs = require('fs');
 const chalk = require('chalk');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-const ScriptExtHTMLPlugin = require('script-ext-html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCssAssetWebpackPlugin = require('optimize-css-assets-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const autoprefixer = require('autoprefixer');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 
 // eslint-disable-next-line no-console
 const log = console.log;
 const isDev = process.env.NODE_ENV === 'development';
 const isProd = !isDev;
+const isStats = process.env.NODE_ENV === 'stats';
 const regexImages = /\.(png|jpe?g|svg|gif)$/i;
+
+// Filename
+const filename = (ext, name = '[name]') => (isDev ? `${name}.${ext}` : `${name}.[contenthash:10].min.${ext}`);
 
 // Optimization
 const optimization = () => {
     const config = {
         splitChunks: {
             chunks: 'all',
+            cacheGroups: {
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: -10,
+                    name: 'vendors',
+                    chunks: 'initial',
+                },
+                default: {
+                    minChunks: 2,
+                    priority: -20,
+                    reuseExistingChunk: true,
+                    chunks: 'initial',
+                },
+            },
         },
     };
 
-    if (isProd) {
-        config.minimizer = [new OptimizeCssAssetWebpackPlugin(), new TerserWebpackPlugin()];
+    if (isProd || isStats) {
+        config.minimize = true;
+        config.minimizer = [
+            new TerserWebpackPlugin({
+                parallel: true,
+            }),
+            new CssMinimizerPlugin({
+                parallel: true,
+                minimizerOptions: {
+                    preset: [
+                        'default',
+                        {
+                            discardComments: { removeAll: true },
+                        },
+                    ],
+                },
+            }),
+        ];
     }
 
     return config;
 };
 
-// Pages
-const multiplesHTMLPages = () => {
-    const HTMLPages = [];
-    const files = glob.sync(path.resolve(__dirname, 'src/*.html'), {});
+// Templates
+const templatesHTML = () => {
+    const pages = [];
+    const templates = fs
+        .readdirSync(path.resolve(__dirname, environment.paths.source, 'templates'))
+        .filter(file => /\.html$/.test(file));
 
-    const sortFiles = files.filter(file => /^((?!index.html).)*$/.test(file));
+    pages.push(...templates);
 
-    const fileNames = sortFiles.map(sortFile => {
-        const splitFile = sortFile.split('/');
-        return splitFile[splitFile.length - 1].replace(/\.html/i, '');
-    });
+    /*
+        NOTE: How many pages you will get
+    */
+    log(chalk.black.bgWhite.bold(`### Get pages: ${chalk.red.bgWhite.bold(pages.join(', '))}`));
 
-    HTMLPages.push(...fileNames);
-
-    //NOTE: How many pages you will get
-    log(chalk.black.bgWhite.bold(`### Get pages: ${chalk.red.bgWhite.bold(HTMLPages.join(', '))}`));
-
-    return HTMLPages.map(
-        HTMLPage =>
+    return pages.map(
+        page =>
             new HTMLWebpackPlugin({
-                filename: `${HTMLPage}.html`,
-                template: `./${HTMLPage}.html`,
-                inject: 'head',
-                minify: {
-                    collapseWhitespace: isProd,
-                },
+                filename: page,
+                template: path.resolve(environment.paths.source, 'templates', page),
+                minify: isProd || isStats,
             })
     );
-};
-
-// SVG Sprite
-const putSVGSprite = () => {
-    return new HTMLWebpackPlugin({
-        filename: 'images/symbol-sprite/symbol-sprite.html',
-        template: './images/symbol-sprite/symbol-sprite.html',
-        inject: false,
-        minify: {
-            collapseWhitespace: isProd,
-        },
-    });
 };
 
 // Style loaders
@@ -82,21 +96,22 @@ const styleLoaders = () => {
         {
             loader: MiniCssExtractPlugin.loader,
             options: {
-                hmr: isDev,
-                reloadAll: true,
                 publicPath: '../',
             },
         },
         {
             loader: 'css-loader',
             options: {
+                importLoaders: 2,
                 sourceMap: isDev,
             },
         },
         {
             loader: 'postcss-loader',
             options: {
-                plugins: [autoprefixer()],
+                postcssOptions: {
+                    plugins: ['autoprefixer'],
+                },
                 sourceMap: isDev,
             },
         },
@@ -126,25 +141,9 @@ const fileLoaders = () => {
     return loaders;
 };
 
-// Babel options
-const babelOptions = preset => {
-    const opts = {
-        presets: ['@babel/preset-env'],
-    };
-
-    if (preset) opts.presets.push(preset);
-
-    return opts;
-};
-
 // Js loaders
 const jsLoaders = () => {
-    const loaders = [
-        {
-            loader: 'babel-loader',
-            options: babelOptions(),
-        },
-    ];
+    const loaders = [];
 
     if (isDev) {
         loaders.push('eslint-loader');
@@ -153,99 +152,72 @@ const jsLoaders = () => {
     return loaders;
 };
 
-// Filename
-const filename = ext => (isDev ? `[name].${ext}` : `[name].[hash].min.${ext}`);
-
 // Plugins
 const plugins = () => {
     const base = [
-        new HTMLWebpackPlugin({
-            template: './index.html',
-            inject: 'head',
-            minify: {
-                collapseWhitespace: isProd,
-            },
-        }),
-        ...multiplesHTMLPages(),
-        new ScriptExtHTMLPlugin({
-            defer: ['main'],
-        }),
         new CleanWebpackPlugin(),
+        new MiniCssExtractPlugin({
+            filename: `scss/${filename('css')}`,
+        }),
         new CopyWebpackPlugin({
             patterns: [
                 {
-                    from: path.resolve(__dirname, 'src/images/'),
+                    from: environment.paths.images,
                     to: 'images/',
                     force: true,
+                    toType: 'dir',
+                    globOptions: {
+                        ignore: ['**/*.DS_Store', '**/Thumbs.db'],
+                    },
                 },
-                // {
-                //     from: path.resolve(__dirname, 'src/fonts/'),
-                //     to: 'fonts/',
-                //     force: true,
-                // },
+                {
+                    from: environment.paths.fonts,
+                    to: 'fonts/',
+                    force: true,
+                    toType: 'dir',
+                    globOptions: {
+                        ignore: ['**/*.DS_Store', '**/Thumbs.db'],
+                    },
+                },
             ],
-        }),
-        putSVGSprite(),
-        new MiniCssExtractPlugin({
-            filename: `styles/${filename('css')}`,
         }),
         new ImageminPlugin({
             disable: isDev,
             test: regexImages,
             pngquant: {
-                quality: '95-100',
+                quality: '60-100',
             },
         }),
+        ...templatesHTML(),
     ];
 
-    if (isProd) base.push(new BundleAnalyzerPlugin());
+    if (isStats) base.push(new BundleAnalyzerPlugin());
 
     return base;
 };
 
-// Webpack's module
+// Modules of webpack
 module.exports = {
-    context: path.resolve(__dirname, 'src'),
-    mode: 'development',
+    context: environment.paths.source,
     entry: {
-        main: ['@babel/polyfill', 'element-closest-polyfill', './scripts/index.js'],
+        app: [path.resolve(environment.paths.source, 'js', 'index.js')],
     },
     output: {
-        filename: `scripts/${filename('js')}`,
-        path: path.resolve(__dirname, 'dist'),
+        filename: `js/${filename('js')}`,
+        path: environment.paths.output,
+        publicPath: environment.paths.assetsPath,
     },
     optimization: optimization(),
-    devServer: {
-        compress: true,
-        host: ip.address(),
-        port: 3000,
-        // hot: isDev,
-        clientLogLevel: 'warn' || 'error' || 'warning',
-        overlay: {
-            errors: true,
-        },
-    },
-    devtool: isDev ? 'source-map' : '',
-    plugins: plugins(),
-    resolve: {
-        alias: {
-            '@': path.resolve(__dirname, 'src'),
-            '@scripts': path.resolve(__dirname, 'src/scripts'),
-            '@helpers': path.resolve(__dirname, 'src/scripts/helpers'),
-            '@components': path.resolve(__dirname, 'src/scripts/components'),
-            '@assets': path.resolve(__dirname, 'src/assets'),
-        },
-    },
     module: {
         rules: [
             {
                 test: /\.js$/,
-                include: /scripts/,
+                include: /js/,
                 use: jsLoaders(),
             },
             {
                 test: /\.scss$/i,
-                include: /styles/,
+                include: /scss/,
                 use: styleLoaders(),
             },
             {
@@ -254,10 +226,17 @@ module.exports = {
                 use: fileLoaders(),
             },
             {
-                test: /\.(ttf|eot|woff2|woff|svg)$/i,
+                test: /\.(woff2|woff)$/i,
                 include: /fonts/,
                 use: fileLoaders(),
             },
         ],
     },
+    plugins: plugins(),
+    resolve: {
+        alias: {
+            '@': path.resolve(__dirname, 'src'),
+        },
+    },
+    target: isProd ? 'browserslist' : 'web',
 };

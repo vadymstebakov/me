@@ -155,7 +155,7 @@ const plugins = () => {
     const base = [
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
-            filename: `scss/${filename('css')}`,
+            filename: `css/${filename('css')}`,
         }),
         new CopyWebpackPlugin({
             patterns: [

@@ -10,6 +10,13 @@
         />
         <meta name="format-detection" content="telephone=no" />
         <link rel="icon" type="image/svg+xml" href="images/favicon/favicon.svg" />
+        <!--[if lte IE 9]>
+            <style type="text/css">
+                body {
+                    display: none !important;
+                }
+            </style>
+        <![endif]-->
     </head>
 
     <body>
@@ -19,7 +26,7 @@
                 <div class="main__container">
                     <h1>Vadym Stebakov</h1>
                     <p>Hi! I am a <i>front-end developer</i>.</p>
-                    <p>I &#10084;&#65039; <b>JavaScript</b>.</p>
+                    <p>I <span class="heart">&#10084;&#65039;</span> <b>JavaScript</b>.</p>
                 </div>
             </main>
             <%= require('html-loader!./includes/footer.html') %>

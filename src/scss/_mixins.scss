@@ -1,0 +1,5 @@
+@mixin responsive-fz($max-size, $min-size, $max-width: 1365, $min-width: 320) {
+    $add-size: $max-size - $min-size;
+    $max-width: $max-width - 320;
+    font-size: calc(#{$min-size + px} + #{$add-size} * ((100vw - #{$min-width + px}) / #{$max-width}));
+}

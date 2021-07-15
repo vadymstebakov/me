@@ -1,10 +1,10 @@
 <svg height="512" width="512" xmlns="http://www.w3.org/2000/svg">
     <style>
-        path: {
+        path {
             fill: #000;
         }
         @media (prefers-color-scheme: dark) {
-            path: {
+            path {
                 fill: #fff;
             }
         }

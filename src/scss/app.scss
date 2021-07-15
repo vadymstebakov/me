@@ -1,4 +1,121 @@
 @import "~normalize.css";
+@import "./_variables";
+@import "./_mixins";
+@import "./_custom-normalize";
 
-@import "./helpers/index";
-@import "./components/index";
+@keyframes heartbeat {
+    0% {
+        transform: scale(0.75);
+    }
+
+    20% {
+        transform: scale(1);
+    }
+
+    40% {
+        transform: scale(0.75);
+    }
+
+    60% {
+        transform: scale(1);
+    }
+
+    80% {
+        transform: scale(0.75);
+    }
+
+    100% {
+        transform: scale(0.75);
+    }
+}
+
+html {
+    height: 100%;
+    background-color: $light;
+}
+
+body {
+    height: 100%;
+    color: $dark;
+    font-family: $arial;
+    font-weight: 400;
+    font-size: 10px;
+}
+
+.main {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    &__inner {
+        display: flex;
+        align-items: center;
+        flex: 1 0 auto;
+        padding: 2em 2em 0;
+    }
+
+    &__container {
+        h1 {
+            @include responsive-fz(100, 65, 1199);
+            max-width: 550px;
+            font-weight: 700;
+        }
+
+        p {
+            @include responsive-fz(40, 20, 1199);
+            margin: 0.5em 0;
+        }
+    }
+}
+
+.heart {
+    display: inline-block;
+    animation: heartbeat 1.2s infinite;
+}
+
+.footer {
+    padding: 2em;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    &__link {
+        @include responsive-fz(10, 8, 1199);
+        width: 4em;
+        height: 4em;
+
+        & + .footer__link {
+            margin-left: 2.5em;
+        }
+
+        &:hover svg {
+            transform: translateY(-0.5em);
+        }
+
+        svg {
+            fill: $dark;
+            transition: transform 0.2s ease-out;
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    html {
+        background-color: $dark;
+    }
+
+    body {
+        color: $light;
+    }
+
+    .footer {
+        &__link {
+            svg {
+                fill: $light;
+            }
+        }
+    }
+}

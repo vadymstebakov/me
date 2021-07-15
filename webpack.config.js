@@ -168,15 +168,6 @@ const plugins = () => {
                         ignore: ['**/*.DS_Store', '**/Thumbs.db'],
                     },
                 },
-                {
-                    from: environment.paths.fonts,
-                    to: 'fonts/',
-                    force: true,
-                    toType: 'dir',
-                    globOptions: {
-                        ignore: ['**/*.DS_Store', '**/Thumbs.db'],
-                    },
-                },
             ],
         }),
         ...templatesHTML(),
@@ -214,11 +205,6 @@ module.exports = {
             {
                 test: /\.(png|jpe?g|svg|gif)$/i,
                 include: /images/,
-                use: fileLoaders(),
-            },
-            {
-                test: /\.(woff2|woff)$/i,
-                include: /fonts/,
                 use: fileLoaders(),
             },
         ],

@@ -1,13 +1,22 @@
-# **Portfolio**
+This project was bootstrapped with [Vite.js](https://vitejs.dev).
 
-## Build setup
-1. Install [NodeJS](https://nodejs.org/en/);
-2. Install the NPM dependencies by running `npm install` or `yarn`.
+## Setup
 
-## Usage
-* `npm run dev` or `yarn run dev` runs your project in the development mode once;
-* `npm start` or `yarn start` runs your project in the development mode on the local server;
-* `npm run build` or `yarn run build` builds your project for production;
-* `npm run stats` or `yarn run stats` analyses your project;
-* `npm run lint:js` or `yarn run lint:js` checks your JavaScript for errors and warnings;
-* `npm run lint:sass` or `yarn run lint:sass` checks your styles for errors and warnings;
+1. Install [Node.js](https://nodejs.org);
+    > Require [Node.js](https://nodejs.org) version >= 16.0.0.
+2. Install the NPM dependencies by running `npm ci`;
+
+## Getting Started
+
+-   Run the development server:
+    ```bash
+    npm run dev
+    ```
+-   Run building application:
+    ```bash
+    npm run build
+    ```
+-   Run the built application on the local server (should run after `npm run build`):
+    ```bash
+    npm run preview
+    ```

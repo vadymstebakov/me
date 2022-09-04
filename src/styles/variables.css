@@ -1,0 +1,11 @@
+:root {
+    /* Fonts */
+    --font-primary: "Arial", sans-serif;
+
+    /* Colors */
+    --color-dark: hsl(206, 21%, 15%);
+    --color-light: hsl(0, 0%, 100%);
+
+    /* Transitions */
+    --default-duration: 0.2s;
+}

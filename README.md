@@ -42,7 +42,3 @@
     ```
     npm run lint
     ```
--   Install husky:
-    ```
-    npm run prepare
-    ```

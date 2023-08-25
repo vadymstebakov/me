@@ -14,8 +14,6 @@
     ```
     npm run build
     ```
--   Build your production site to `./dist/` for Github Pages with specific base url:
-    ```
     npm run build-gh-pages
     ```
 -   Preview your build locally, before deploying:

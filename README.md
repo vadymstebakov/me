@@ -4,7 +4,7 @@
     > Require [Node.js](https://nodejs.org) version >= 16.12.0.
 2. Install the NPM dependencies by running `npm ci`;
 
-## 🧞 Commands
+# 🧞 Commands
 
 -   Run the local dev server at `localhost:3000`:
     ```

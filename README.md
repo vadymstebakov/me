@@ -1,46 +1,47 @@
 # ⚙️ Setup
-
 1. Install [NodeJS](https://nodejs.org/en/);
-    > Require [Node.js](https://nodejs.org) version >= 16.12.0.
+    > Require [Node.js](https://nodejs.org) version >= 22.
 2. Install the NPM dependencies by running `npm ci`;
 
-# 🧞 Commands
 
--   Run the local dev server at `localhost:3000`:
+# 🤖 Commands
+-   Runs the local dev server at `localhost:9777`:
     ```
     npm run dev
     ```
--   Build your production site to `./dist/`:
+-   Builds your production site to `./dist/`:
     ```
     npm run build
     ```
-    npm run build-gh-pages
-    ```
--   Preview your build locally, before deploying:
+-   Previews your build locally, before deploying:
     ```
     npm run preview
     ```
--   Run CLI commands like `astro add`, `astro check`:
+-   Runs CLI commands like `astro add`, `astro check`:
     ```
     npm run astro ...
     ```
--   Check your JavaScript/TypeScript for errors and warnings:
+-   Builds your app for GitHub Pages:
+    ```
+    npm run build-gh-pages
+    ```
+-   Checks your JavaScript/TypeScript for errors and warnings:
     ```
     npm run lint:eslint
     ```
--   Check your CSS for errors and warnings:
+-   Checks your CSS for errors and warnings:
     ```
     npm run lint:stylelint
     ```
--   Check your code formatting:
+-   Checks your code formatting:
     ```
     npm run lint:prettier
     ```
--   Fix your code formatting:
-    ```
-    npm run lint:prettier:fix
-    ```
--   Check your code all together:
+-   Checks your code all together:
     ```
     npm run lint
+    ```
+-   Fixes your code formatting:
+    ```
+    npm run fix:prettier
     ```

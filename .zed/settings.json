@@ -1,0 +1,18 @@
+{
+    "languages": {
+        "Astro": {
+            "language_servers": ["eslint", "stylelint", "..."]
+        }
+    },
+    "lsp": {
+        "stylelint-lsp": {
+            "settings": {
+                "stylelint": {
+                    "validate": ["css", "astro"],
+                    "configFile": "./stylelint.config.mjs",
+                    "customSyntax": "postcss-html"
+                }
+            }
+        }
+    }
+}

@@ -128,4 +128,15 @@ const { title } = Astro.props;
         display: flex;
         flex-direction: column;
     }
+
+    .sr-only {
+        /* stylelint-disable-next-line property-no-deprecated */
+        clip: rect(0 0 0 0);
+        clip-path: inset(50%);
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+    }
 </style>

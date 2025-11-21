@@ -1,11 +1,18 @@
 {
-    "extends": "astro/tsconfigs/strict",
     "compilerOptions": {
+        "plugins": [
+            {
+                "name": "@astrojs/ts-plugin"
+            }
+        ],
         "baseUrl": ".",
         "paths": {
             "@/*": ["src/*"]
         },
-        "importsNotUsedAsValues": "error",
-        "target": "ES2020"
-    }
+        "target": "ES2022",
+        "verbatimModuleSyntax": true
+    },
+    "extends": "astro/tsconfigs/strict",
+    "include": [".astro/types.d.ts", "**/*"],
+    "exclude": ["dist"]
 }

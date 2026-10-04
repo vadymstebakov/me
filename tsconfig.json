@@ -5,9 +5,9 @@
                 "name": "@astrojs/ts-plugin"
             }
         ],
-        "baseUrl": ".",
+        "rootDir": ".",
         "paths": {
-            "@/*": ["src/*"]
+            "@/*": ["./src/*"]
         },
         "target": "ES2022",
         "verbatimModuleSyntax": true

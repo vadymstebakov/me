@@ -8,7 +8,7 @@ export default defineConfig({
     server: { port: 9777, host: true },
     vite: {
         build: {
-            target: ['es2022', 'edge100', 'firefox100', 'chrome100', 'safari15.4', 'opera90'],
+            target: ['edge100', 'firefox100', 'chrome100', 'safari15.4', 'opera90'],
         },
     },
 });

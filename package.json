@@ -17,7 +17,7 @@
         "lint": "astro check && npm run lint:eslint && npm run lint:stylelint && npm run lint:prettier"
     },
     "dependencies": {
-        "@astrojs/check": "0.9.10",
+        "@astrojs/check": "0.9.12",
         "astro": "7.4.5",
         "typescript": "6.0.3"
     },

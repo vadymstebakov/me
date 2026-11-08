@@ -17,23 +17,23 @@
         "lint": "astro check && npm run lint:eslint && npm run lint:stylelint && npm run lint:prettier"
     },
     "dependencies": {
-        "@astrojs/check": "0.9.10",
-        "astro": "7.3.5",
-        "typescript": "6.0.3"
+        "@astrojs/check": "0.9.12",
+        "astro": "7.4.5",
+        "typescript": "7.0.2"
     },
     "devDependencies": {
         "@astrojs/ts-plugin": "1.10.12",
-        "@typescript-eslint/parser": "8.71.0",
-        "autoprefixer": "10.6.1",
-        "eslint": "10.11.0",
+        "@typescript-eslint/parser": "8.72.1",
+        "autoprefixer": "10.6.2",
+        "eslint": "10.14.0",
         "eslint-plugin-astro": "3.2.1",
         "eslint-plugin-jsx-a11y": "6.10.2",
         "postcss-html": "2.0.0",
-        "prettier": "3.9.9",
-        "prettier-plugin-astro": "1.1.0",
-        "stylelint": "17.16.0",
+        "prettier": "3.9.10",
+        "prettier-plugin-astro": "1.1.2",
+        "stylelint": "18.0.0",
         "stylelint-config-html": "2.0.0",
-        "stylelint-config-standard": "40.0.0"
+        "stylelint-config-standard": "41.0.0"
     },
     "overrides": {
         "eslint-plugin-jsx-a11y": {

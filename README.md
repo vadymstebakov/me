@@ -1,8 +1,8 @@
 # ⚙️ Setup
 
 1. Install [NodeJS](https://nodejs.org/en/);
-    > Require [Node.js](https://nodejs.org) version >= 24.
-2. Install the NPM dependencies by running `npm ci`;
+    > Require [Node.js](https://nodejs.org) version >= 26.
+2. Install the NPM dependencies by running `npm i`;
 
 # 🤖 Commands
 

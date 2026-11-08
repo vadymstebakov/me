@@ -6,9 +6,6 @@ updates:
           interval: weekly
       cooldown:
           default-days: 3
-      groups:
-          actions:
-              patterns: ['*']
 
     - package-ecosystem: github-actions
       directories: ['/', '/.github/actions/setup']

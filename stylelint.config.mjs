@@ -68,7 +68,6 @@ export default {
                 ignore: ['after-comment', 'inside-single-line-block'],
             },
         ],
-        'declaration-block-single-line-max-declarations': 1,
         'declaration-empty-line-before': [
             'always',
             {

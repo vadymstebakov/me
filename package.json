@@ -22,7 +22,7 @@
         "typescript": "6.0.3"
     },
     "devDependencies": {
-        "@astrojs/ts-plugin": "1.10.12",
+        "@astrojs/ts-plugin": "1.11.0",
         "@typescript-eslint/parser": "8.72.1",
         "autoprefixer": "10.6.2",
         "eslint": "10.14.0",
